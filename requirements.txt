@@ -14,8 +14,8 @@ google-pasta==0.2.0
 grpcio==1.76.0
 h5py==3.15.1
 idna==3.11
-jax==0.4.34
-jaxlib==0.4.34
+jax==0.4.30
+jaxlib==0.4.30
 keras==2.12.0
 libclang==18.1.1
 Markdown==3.10
