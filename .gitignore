@@ -1,0 +1,27 @@
+# Python virtual environments
+art_detector_env/
+detectorenv/
+
+# TensorFlow saved models
+converted_savedmodel/
+**/saved_model.pb
+**/variables/
+**/assets/
+
+# SQLite database
+db.sqlite3
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# VS Code settings (optional)
+.vscode/
+
+# Logs and temp files
+*.log
+*.tmp
+
+# OS-specific files
+.DS_Store
+Thumbs.db
