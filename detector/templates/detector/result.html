@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AI vs Real Art Detector - Result</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background: #fff;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            width: 400px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        img {
+            max-width: 100%;
+            border-radius: 10px;
+            border: 2px solid #ddd;
+            margin-top: 20px;
+        }
+
+        .result {
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        .ai {
+            color: #e74c3c; /* red for AI art */
+        }
+
+        .real {
+            color: #2ecc71; /* green for real art */
+        }
+
+        .back-button {
+            display: inline-block;
+            margin-top: 25px;
+            padding: 12px 25px;
+            font-size: 16px;
+            background: #3498db;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: background 0.3s ease;
+        }
+
+        .back-button:hover {
+            background: #2980b9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Prediction Result</h1>
+
+        {% if image %}
+            <img src="{{ image.url }}" alt="Uploaded Image">
+        {% endif %}
+
+        {% if result_text %}
+            <div class="result {% if 'AI' in result_text %}ai{% else %}real{% endif %}">
+                {{ result_text }}
+            </div>
+        {% endif %}
+
+        <a href="/" class="back-button">Try Another Image</a>
+    </div>
+</body>
+</html>

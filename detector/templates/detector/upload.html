@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AI vs Real Art Detector</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background: #fff;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            width: 400px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        input[type="file"] {
+            margin: 15px 0;
+            font-size: 16px;
+        }
+
+        button {
+            padding: 12px 25px;
+            font-size: 16px;
+            background: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        button:hover {
+            background: #45a049;
+        }
+
+        img {
+            max-width: 100%;
+            border-radius: 10px;
+            border: 2px solid #ddd;
+            margin-top: 20px;
+        }
+
+        .result {
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        .ai {
+            color: #e74c3c; /* red */
+        }
+
+        .real {
+            color: #2ecc71; /* green */
+        }
+
+        .error {
+            color: #e74c3c;
+            margin-top: 15px;
+        }
+
+        .auth-links {
+            text-align: right;
+            margin-bottom: 10px;
+        }
+
+        .auth-links form {
+            display: inline;
+        }
+
+        .auth-links button {
+            background: transparent;
+            border: none;
+            color: #3498db;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .auth-links button:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="auth-links">
+            {% if user.is_authenticated %}
+                Welcome, {{ user.username }} |
+                <form method="POST" action="{% url 'logout' %}">
+                    {% csrf_token %}
+                    <button type="submit">Logout</button>
+                </form>
+            {% else %}
+                <a href="{% url 'login' %}">Login</a> |
+                <a href="{% url 'register' %}">Register</a>
+            {% endif %}
+        </div>
+
+        <h1>AI vs Real Art Detector</h1>
+
+        {% if error %}
+            <div class="error">{{ error }}</div>
+        {% endif %}
+
+        {% if user.is_authenticated %}
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input type="file" name="image" accept="image/*" required>
+                <br>
+                <button type="submit">Predict</button>
+            </form>
+
+            {% if image_base64 %}
+                <h2>Uploaded Image:</h2>
+                <img src="data:image/jpeg;base64,{{ image_base64 }}" alt="Uploaded Image">
+            {% endif %}
+
+            {% if result_text %}
+                <div class="result {% if 'AI' in result_text %}ai{% else %}real{% endif %}">
+                    {{ result_text }}
+                </div>
+            {% endif %}
+        {% else %}
+            <p>Please login or register to use the AI detector.</p>
+        {% endif %}
+    </div>
+</body>
+</html>
